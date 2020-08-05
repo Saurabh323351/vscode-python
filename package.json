@@ -3438,6 +3438,7 @@
         "uint64be": "^1.0.1",
         "unicode": "^10.0.0",
         "untildify": "^3.0.2",
+        "vega-typings": "^0.18.0",
         "vscode-debugadapter": "^1.28.0",
         "vscode-debugprotocol": "^1.28.0",
         "vscode-extension-telemetry": "0.1.4",
@@ -3678,7 +3679,12 @@
         "webpack-require-from": "^1.8.0",
         "why-is-node-running": "^2.0.3",
         "wtfnode": "^0.8.0",
-        "yargs": "^15.3.1"
+        "yargs": "^15.3.1",
+        "@deck.gl/core": "^8.1.5",
+        "@deck.gl/layers": "^8.1.5",
+        "@msrvida/sanddance-react": "^3",
+        "@luma.gl/core": "^8.1.2",
+        "vega": "^5.11"
     },
     "__metadata": {
         "id": "f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5",
