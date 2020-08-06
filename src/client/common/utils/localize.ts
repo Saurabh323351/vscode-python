@@ -313,6 +313,27 @@ export namespace DataScienceRendererExtension {
         'Notebook Renderers extension download complete.'
     );
 }
+
+export namespace SandDanceExtension {
+    export const installingExtension = localize(
+        'SandDanceExtension.installingExtension',
+        'Installing SandDance extension... '
+    );
+    export const installationCompleteMessage = localize('SandDanceExtension.installationCompleteMessage', 'complete.');
+    export const startingDownloadOutputMessage = localize(
+        'SandDanceExtension.startingDownloadOutputMessage',
+        'Starting download of SandDance extension.'
+    );
+    export const downloadingMessage = localize(
+        'SandDanceExtension.downloadingMessage',
+        'Downloading SandDance Extension... '
+    );
+    export const downloadCompletedOutputMessage = localize(
+        'SandDanceExtension.downloadCompletedOutputMessage',
+        'SandDance extension download complete.'
+    );
+}
+
 export namespace DataScienceNotebookSurveyBanner {
     export const bannerMessage = localize(
         'DataScienceNotebookSurveyBanner.bannerMessage',

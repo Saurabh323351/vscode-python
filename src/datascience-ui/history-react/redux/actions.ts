@@ -19,6 +19,7 @@ import {
     IOpenSettingsAction,
     IScrollAction,
     IShowDataViewerAction,
+    IShowSandDance,
     IVariableExplorerHeight
 } from '../../interactive-common/redux/reducers/types';
 import { IMonacoModelContentChangeEvent } from '../../react-common/monacoHelpers';
@@ -82,6 +83,8 @@ export const actionCreators = {
     exportAs: (): CommonAction => createIncomingAction(CommonActionType.EXPORT_NOTEBOOK_AS),
     showDataViewer: (variable: IJupyterVariable, columnSize: number): CommonAction<IShowDataViewerAction> =>
         createIncomingActionWithPayload(CommonActionType.SHOW_DATA_VIEWER, { variable, columnSize }),
+    showSandDance: (variable: IJupyterVariable): CommonAction<IShowSandDance> =>
+        createIncomingActionWithPayload(CommonActionType.SHOW_SANDDANCE, { variable }),
     editorLoaded: (): CommonAction => createIncomingAction(CommonActionType.EDITOR_LOADED),
     scroll: (isAtBottom: boolean): CommonAction<IScrollAction> =>
         createIncomingActionWithPayload(CommonActionType.SCROLL, { isAtBottom }),

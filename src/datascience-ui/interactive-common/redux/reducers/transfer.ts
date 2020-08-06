@@ -20,7 +20,8 @@ import {
     IEditCellAction,
     ILinkClickAction,
     ISendCommandAction,
-    IShowDataViewerAction
+    IShowDataViewerAction,
+    IShowSandDance
 } from './types';
 
 // These are all reducers that don't actually change state. They merely dispatch a message to the other side.
@@ -59,6 +60,13 @@ export namespace Transfer {
         postActionToExtension(arg, InteractiveWindowMessages.ShowDataViewer, {
             variable: arg.payload.data.variable,
             columnSize: arg.payload.data.columnSize
+        });
+        return arg.prevState;
+    }
+
+    export function showSandDance(arg: CommonReducerArg<CommonActionType, IShowSandDance>) {
+        postActionToExtension(arg, InteractiveWindowMessages.ShowSandDance, {
+            variable: arg.payload.data.variable
         });
         return arg.prevState;
     }

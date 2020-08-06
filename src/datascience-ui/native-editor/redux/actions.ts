@@ -22,6 +22,7 @@ import {
     IOpenSettingsAction,
     ISendCommandAction,
     IShowDataViewerAction,
+    IShowSandDance,
     IVariableExplorerHeight
 } from '../../interactive-common/redux/reducers/types';
 import { IMonacoModelContentChangeEvent } from '../../react-common/monacoHelpers';
@@ -78,6 +79,8 @@ export const actionCreators = {
     save: (): CommonAction => createIncomingAction(CommonActionType.SAVE),
     showDataViewer: (variable: IJupyterVariable, columnSize: number): CommonAction<IShowDataViewerAction> =>
         createIncomingActionWithPayload(CommonActionType.SHOW_DATA_VIEWER, { variable, columnSize }),
+    showSandDance: (variable: IJupyterVariable): CommonAction<IShowSandDance> =>
+        createIncomingActionWithPayload(CommonActionType.SHOW_SANDDANCE, { variable }),
     sendCommand: (
         command: NativeKeyboardCommandTelemetry | NativeMouseCommandTelemetry
     ): CommonAction<ISendCommandAction> => createIncomingActionWithPayload(CommonActionType.SEND_COMMAND, { command }),

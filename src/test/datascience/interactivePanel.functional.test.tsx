@@ -92,6 +92,7 @@ suite('DataScience Interactive Panel', () => {
             selectKernel: noopAny,
             selectServer: noopAny,
             showDataViewer: noopAny,
+            showSandDance: noopAny,
             showPlot: noopAny,
             submitInput: noopAny,
             submittedText: noopAny,

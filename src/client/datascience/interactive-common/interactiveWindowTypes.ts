@@ -12,6 +12,7 @@ import {
     IAddCellAction,
     IChangeGatherStatus,
     ILoadIPyWidgetClassFailureAction,
+    IShowSandDance,
     IVariableExplorerHeight,
     LoadIPyWidgetClassLoadAction,
     NotifyIPyWidgeWidgetVersionNotSupportedAction
@@ -69,6 +70,7 @@ export enum InteractiveWindowMessages {
     RemoteReexecuteCode = 'remote_reexecute_code',
     Activate = 'activate',
     ShowDataViewer = 'show_data_explorer',
+    ShowSandDance = 'show_sanddance',
     GetVariablesRequest = 'get_variables_request',
     GetVariablesResponse = 'get_variables_response',
     VariableExplorerToggle = 'variable_explorer_toggle',
@@ -600,6 +602,7 @@ export class IInteractiveWindowMapping {
     public [InteractiveWindowMessages.RemoteReexecuteCode]: IRemoteReexecuteCode;
     public [InteractiveWindowMessages.Activate]: never | undefined;
     public [InteractiveWindowMessages.ShowDataViewer]: IShowDataViewer;
+    public [InteractiveWindowMessages.ShowSandDance]: IShowSandDance;
     public [InteractiveWindowMessages.GetVariablesRequest]: IJupyterVariablesRequest;
     public [InteractiveWindowMessages.GetVariablesResponse]: IJupyterVariablesResponse;
     public [InteractiveWindowMessages.VariableExplorerToggle]: boolean;

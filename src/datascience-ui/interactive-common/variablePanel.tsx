@@ -22,6 +22,7 @@ export interface IVariablePanelProps {
     gridHeight: number;
     containerHeight: number;
     showDataExplorer(targetVariable: IJupyterVariable, numberOfColumns: number): void;
+    showSandDance(targetVariable: IJupyterVariable): void;
     closeVariableExplorer(): void;
     // tslint:disable-next-line: no-any
     setVariableExplorerHeight(containerHeight: number, gridHeight: number): any;
@@ -45,6 +46,7 @@ export class VariablePanel extends React.Component<IVariablePanelProps> {
                 baseTheme={this.props.baseTheme}
                 skipDefault={this.props.skipDefault}
                 showDataExplorer={this.props.showDataExplorer}
+                showSandDance={this.props.showSandDance}
                 closeVariableExplorer={this.props.closeVariableExplorer}
                 setVariableExplorerHeight={this.props.setVariableExplorerHeight}
                 pageIn={this.props.pageIn}

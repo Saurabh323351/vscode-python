@@ -90,6 +90,7 @@ const messageWithMessageTypes: MessageMapping<IInteractiveWindowMapping> & Messa
     [CommonActionType.SELECT_SERVER]: MessageType.other,
     [CommonActionType.SEND_COMMAND]: MessageType.other,
     [CommonActionType.SHOW_DATA_VIEWER]: MessageType.other,
+    [CommonActionType.SHOW_SANDDANCE]: MessageType.other,
     [CommonActionType.STEP]: MessageType.other,
     [CommonActionType.SUBMIT_INPUT]: MessageType.other,
     [CommonActionType.TOGGLE_INPUT_BLOCK]: MessageType.syncAcrossSameNotebooks | MessageType.syncWithLiveShare,

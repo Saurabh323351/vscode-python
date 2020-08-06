@@ -19,15 +19,6 @@ import { MainPanel } from './mainPanel';
 // This special function talks to vscode from a web panel
 export declare function acquireVsCodeApi(): IVsCodeApi;
 
-import * as deck from '@deck.gl/core';
-import * as layers from '@deck.gl/layers';
-import * as luma from '@luma.gl/core';
-import * as vega from 'vega';
-
-import { SandDance, SandDanceReact } from '@msrvida/sanddance-react';
-
-SandDance.use(vega, deck, layers, luma);
-
 const baseTheme = detectBaseTheme();
 
 // tslint:disable:no-typeof-undefined

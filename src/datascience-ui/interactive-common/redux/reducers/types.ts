@@ -9,7 +9,7 @@ import {
     IShowDataViewer
 } from '../../../../client/datascience/interactive-common/interactiveWindowTypes';
 import { BaseReduxActionPayload } from '../../../../client/datascience/interactive-common/types';
-import { IJupyterVariablesRequest } from '../../../../client/datascience/types';
+import { IJupyterVariable, IJupyterVariablesRequest } from '../../../../client/datascience/types';
 import { ActionWithPayload, ReducerArg } from '../../../react-common/reduxUtils';
 import { CursorPos, IMainState } from '../../mainState';
 
@@ -78,6 +78,7 @@ export enum CommonActionType {
     SET_VARIABLE_EXPLORER_HEIGHT = 'action.set_variable_explorer_height',
     SEND_COMMAND = 'action.send_command',
     SHOW_DATA_VIEWER = 'action.show_data_viewer',
+    SHOW_SANDDANCE = 'action.show_sanddance',
     STEP = 'action.step',
     SUBMIT_INPUT = 'action.submit_input',
     TOGGLE_INPUT_BLOCK = 'action.toggle_input_block',
@@ -111,6 +112,7 @@ export type CommonActionTypeMapping = {
     [CommonActionType.EXPORT_NOTEBOOK_AS]: never | undefined;
     [CommonActionType.SAVE]: never | undefined;
     [CommonActionType.SHOW_DATA_VIEWER]: IShowDataViewerAction;
+    [CommonActionType.SHOW_SANDDANCE]: IShowSandDance;
     [CommonActionType.SEND_COMMAND]: ISendCommandAction;
     [CommonActionType.SELECT_CELL]: ICellAndCursorAction;
     [CommonActionType.MOVE_CELL_UP]: ICellAction;
@@ -153,6 +155,10 @@ export type CommonActionTypeMapping = {
 };
 
 export interface IShowDataViewerAction extends IShowDataViewer {}
+
+export interface IShowSandDance {
+    variable: IJupyterVariable;
+}
 
 export interface ILinkClickAction {
     href: string;

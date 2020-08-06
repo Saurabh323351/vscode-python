@@ -38,6 +38,7 @@ export const reducerMap: Partial<INativeEditorActionMapping> = {
     [CommonActionType.EXPORT_NOTEBOOK_AS]: Transfer.showExportAsMenu,
     [CommonActionType.SAVE]: Transfer.save,
     [CommonActionType.SHOW_DATA_VIEWER]: Transfer.showDataViewer,
+    [CommonActionType.SHOW_SANDDANCE]: Transfer.showSandDance,
     [CommonActionType.SEND_COMMAND]: Transfer.sendCommand,
     [CommonActionType.SELECT_CELL]: Effects.selectCell,
     [InteractiveWindowMessages.SelectKernel]: Kernel.selectKernel,

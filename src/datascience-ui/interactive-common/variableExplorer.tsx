@@ -38,6 +38,7 @@ interface IVariableExplorerProps {
     gridHeight: number;
     containerHeight: number;
     showDataExplorer(targetVariable: IJupyterVariable, numberOfColumns: number): void;
+    showSandDance(targetVariable: IJupyterVariable): void;
     closeVariableExplorer(): void;
     setVariableExplorerHeight(containerHeight: number, gridHeight: number): void;
     pageIn(startIndex: number, pageSize: number): void;
@@ -109,6 +110,20 @@ export class VariableExplorer extends React.Component<IVariableExplorerProps, IV
         this.saveCurrentSize = this.saveCurrentSize.bind(this);
 
         this.gridColumns = [
+            {
+                key: 'buttons',
+                name: '',
+                type: 'boolean',
+                width: 36,
+                sortable: false,
+                resizable: false,
+                formatter: (
+                    <VariableExplorerButtonCellFormatter
+                        showDataExplorer={this.props.showSandDance}
+                        baseTheme={this.props.baseTheme}
+                    />
+                )
+            },
             {
                 key: 'buttons',
                 name: '',

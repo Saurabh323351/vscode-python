@@ -22,6 +22,7 @@ import {
     Uri,
     ViewColumn
 } from 'vscode';
+// tslint:disable-next-line: no-duplicate-imports
 import { Disposable } from 'vscode-jsonrpc';
 import { ServerStatus } from '../../../datascience-ui/interactive-common/mainState';
 import {
@@ -37,6 +38,7 @@ import { EXTENSION_ROOT_DIR, isTestExecution, PYTHON_LANGUAGE } from '../../comm
 import { RemoveKernelToolbarInInteractiveWindow, RunByLine } from '../../common/experiments/groups';
 import { traceError, traceInfo, traceWarning } from '../../common/logger';
 
+import { IShowSandDance } from '../../../datascience-ui/interactive-common/redux/reducers/types';
 import {
     IConfigurationService,
     IDisposableRegistry,
@@ -320,6 +322,10 @@ export abstract class InteractiveBase extends WebViewHost<IInteractiveWindowMapp
 
             case InteractiveWindowMessages.ShowDataViewer:
                 this.handleMessage(message, payload, this.showDataViewer);
+                break;
+
+            case InteractiveWindowMessages.ShowSandDance:
+                this.handleMessage(message, payload, this.showSandDance);
                 break;
 
             case InteractiveWindowMessages.GetVariablesRequest:
@@ -972,6 +978,17 @@ export abstract class InteractiveBase extends WebViewHost<IInteractiveWindowMapp
                 const title: string = `${localize.DataScience.dataExplorerTitle()} - ${request.variable.name}`;
                 await this.dataExplorerFactory.create(jupyterVariableDataProvider, title);
             }
+        } catch (e) {
+            this.applicationShell.showErrorMessage(e.toString());
+        }
+    }
+
+    private async showSandDance(request: IShowSandDance) {
+        try {
+            const jupyterVariableDataProvider = await this.jupyterVariableDataProviderFactory.create(
+                request.variable,
+                this._notebook!
+            );
         } catch (e) {
             this.applicationShell.showErrorMessage(e.toString());
         }

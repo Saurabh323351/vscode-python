@@ -183,6 +183,7 @@ ${buildSettingsCss(this.props.settings)}`}</style>
             debugging: this.props.debugging,
             busy: this.props.busy,
             showDataExplorer: this.props.showDataViewer,
+            showSandDance: this.props.showSandDance,
             skipDefault: this.props.skipDefault,
             testMode: this.props.testMode,
             closeVariableExplorer: this.props.toggleVariableExplorer,

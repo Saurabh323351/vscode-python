@@ -24,6 +24,7 @@ export const reducerMap: Partial<IInteractiveActionMapping> = {
     [CommonActionType.EXPORT_NOTEBOOK_AS]: Transfer.showExportAsMenu,
     [CommonActionType.SAVE]: Transfer.save,
     [CommonActionType.SHOW_DATA_VIEWER]: Transfer.showDataViewer,
+    [CommonActionType.SHOW_SANDDANCE]: Transfer.showSandDance,
     [CommonActionType.DELETE_CELL]: Creation.deleteCell,
     [InteractiveWindowMessages.ShowPlot]: Transfer.showPlot,
     [CommonActionType.LINK_CLICK]: Transfer.linkClick,
