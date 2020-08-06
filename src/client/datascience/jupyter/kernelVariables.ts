@@ -9,10 +9,9 @@ import * as uuid from 'uuid/v4';
 import { CancellationToken, Event, EventEmitter, Uri } from 'vscode';
 import { PYTHON_LANGUAGE } from '../../common/constants';
 import { traceError } from '../../common/logger';
-import { IFileSystem, TemporaryFile } from '../../common/platform/types';
+import { IFileSystem } from '../../common/platform/types';
 import { IConfigurationService, IDisposable } from '../../common/types';
 import * as localize from '../../common/utils/localize';
-import { noop } from '../../common/utils/misc';
 import { DataFrameLoading, Identifiers, Settings } from '../constants';
 import {
     ICell,
@@ -124,37 +123,24 @@ export class KernelVariables implements IJupyterVariables {
         };
     }
 
-    public async makeCSVFileFromDataFrame(
-        targetVariable: IJupyterVariable,
-        notebook: INotebook
-    ): Promise<TemporaryFile> {
+    public async makeCSVFileFromDataFrame(targetVariable: IJupyterVariable, notebook: INotebook): Promise<string> {
         // Import the data frame script directory if we haven't already
         await this.importDataFrameScripts(notebook);
         const tempFile = await this.fileSystem.createTemporaryFile('.csv');
-        const uniqueFilePath = tempFile.filePath;
+        const uniqueFilePath = 'C:\\Users\\timot\\Desktop\\test.csv';
         tempFile.dispose();
 
-        await notebook.execute(`import pandas as pd`, Identifiers.EmptyFileName, 0, uuid(), undefined, true);
         await notebook.execute(
-            `${targetVariable} = pd.DataFrame.from_dict(${targetVariable.name})`,
-            Identifiers.EmptyFileName,
-            1,
-            uuid(),
-            undefined,
-            true
-        );
-        const result = await notebook.execute(
-            `${targetVariable.name}.to_csv('C:\\Users\\timot\\Desktop\\test123456.csv')`,
+            `import pandas as pd;${targetVariable.name} = pd.DataFrame.from_dict(${targetVariable.name});${
+                targetVariable.name
+            }.to_csv(${this.escapeFilePath(uniqueFilePath)})`,
             Identifiers.EmptyFileName,
             2,
             uuid(),
             undefined,
             true
         );
-
-        await this.delay(1000);
-        console.log(uniqueFilePath);
-        return tempFile;
+        return uniqueFilePath;
     }
 
     public async getDataFrameRows(
@@ -180,13 +166,6 @@ export class KernelVariables implements IJupyterVariables {
             true
         );
         return this.deserializeJupyterResult(results);
-    }
-
-    private async delay(ms: number, callback?: Function): Promise<void> {
-        await new Promise((resolve) => setTimeout(resolve, ms)).then(() => {
-            // tslint:disable-next-line: no-unused-expression
-            callback ? callback() : noop;
-        });
     }
 
     private escapeFilePath(path: string): string {

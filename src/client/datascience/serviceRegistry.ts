@@ -129,6 +129,9 @@ import { PreWarmActivatedJupyterEnvironmentVariables } from './preWarmVariables'
 import { ProgressReporter } from './progress/progressReporter';
 import { RawNotebookProviderWrapper } from './raw-kernel/rawNotebookProviderWrapper';
 import { RawNotebookSupportedService } from './raw-kernel/rawNotebookSupportedService';
+import { SandDanceExtension } from './sanddance/sandDanceExtension';
+import { SandDanceInstaller } from './sanddance/sandDanceInstaller';
+import { SandDanceOpener } from './sanddance/sandDanceOpener';
 import { StatusProvider } from './statusProvider';
 import { ThemeFinder } from './themeFinder';
 import {
@@ -180,9 +183,6 @@ import {
     IThemeFinder,
     ITrustService
 } from './types';
-import { SandDanceOpener } from './sanddance/sandDanceOpener';
-import { SandDanceExtension } from './sanddance/sandDanceExtension';
-import { SandDanceInstaller } from './sanddance/sandDanceInstaller';
 
 // README: Did you make sure "dataScienceIocContainer.ts" has also been updated appropriately?
 

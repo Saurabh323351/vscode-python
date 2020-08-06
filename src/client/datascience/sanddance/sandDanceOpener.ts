@@ -1,5 +1,6 @@
 import { inject, injectable, named } from 'inversify';
 import * as vscode from 'vscode';
+// tslint:disable-next-line: no-duplicate-imports
 import { Uri } from 'vscode';
 import { IDocumentManager } from '../../common/application/types';
 import { Identifiers } from '../constants';
@@ -25,8 +26,8 @@ export class SandDanceOpener {
         await this.extension.install();
         await this.dependencyService.checkAndInstallMissingDependencies(notebook.getMatchingInterpreter());
         if (this.variableProvider.makeCSVFileFromDataFrame) {
-            const tempCSV = await this.variableProvider.makeCSVFileFromDataFrame(variable, notebook);
-            vscode.commands.executeCommand('sanddance.view', Uri.file(tempCSV.filePath));
+            const tempCSVPath = await this.variableProvider.makeCSVFileFromDataFrame(variable, notebook);
+            vscode.commands.executeCommand('sanddance.view', Uri.file(tempCSVPath));
         }
     }
 }
