@@ -109,6 +109,7 @@ const messageWithMessageTypes: MessageMapping<IInteractiveWindowMapping> & Messa
     [CommonActionType.IPYWIDGET_RENDER_FAILURE]: MessageType.other,
 
     // Types from InteractiveWindowMessages
+    [InteractiveWindowMessages.ShowSandDance]: MessageType.other,
     [InteractiveWindowMessages.Activate]: MessageType.other,
     [InteractiveWindowMessages.AddedSysInfo]: MessageType.other,
     [InteractiveWindowMessages.CancelCompletionItemsRequest]: MessageType.other,

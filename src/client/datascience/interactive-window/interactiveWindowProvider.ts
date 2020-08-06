@@ -38,6 +38,7 @@ import { IDataViewerFactory } from '../data-viewing/types';
 import { ExportUtil } from '../export/exportUtil';
 import { KernelSelector } from '../jupyter/kernels/kernelSelector';
 import { PostOffice } from '../liveshare/postOffice';
+import { SandDanceOpener } from '../sanddance/sandDanceOpener';
 import {
     ICodeCssGenerator,
     IDataScienceErrorHandler,
@@ -197,7 +198,8 @@ export class InteractiveWindowProvider implements IInteractiveWindowProvider, IA
             resource,
             mode,
             title,
-            this.serviceContainer.get<KernelSelector>(KernelSelector)
+            this.serviceContainer.get<KernelSelector>(KernelSelector),
+            this.serviceContainer.get<SandDanceOpener>(SandDanceOpener)
         );
         this._windows.push(result);
 

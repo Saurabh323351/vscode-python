@@ -41,6 +41,7 @@ import {
     SysInfoReason
 } from '../interactive-common/interactiveWindowTypes';
 import { KernelSelector } from '../jupyter/kernels/kernelSelector';
+import { SandDanceOpener } from '../sanddance/sandDanceOpener';
 import {
     ICell,
     ICodeCssGenerator,
@@ -131,7 +132,8 @@ export class InteractiveWindow extends InteractiveBase implements IInteractiveWi
         owner: Resource,
         mode: InteractiveWindowMode,
         title: string | undefined,
-        selector: KernelSelector
+        selector: KernelSelector,
+        sandDanceOpener: SandDanceOpener
     ) {
         super(
             listeners,
@@ -169,7 +171,8 @@ export class InteractiveWindow extends InteractiveBase implements IInteractiveWi
             notebookProvider,
             useCustomEditorApi,
             expService,
-            selector
+            selector,
+            sandDanceOpener
         );
 
         // Send a telemetry event to indicate window is opening

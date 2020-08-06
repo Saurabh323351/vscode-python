@@ -180,6 +180,9 @@ import {
     IThemeFinder,
     ITrustService
 } from './types';
+import { SandDanceOpener } from './sanddance/sandDanceOpener';
+import { SandDanceExtension } from './sanddance/sandDanceExtension';
+import { SandDanceInstaller } from './sanddance/sandDanceInstaller';
 
 // README: Did you make sure "dataScienceIocContainer.ts" has also been updated appropriately?
 
@@ -313,6 +316,9 @@ export function registerTypes(serviceManager: IServiceManager) {
     serviceManager.addSingleton<ITrustService>(ITrustService, TrustService);
     serviceManager.addSingleton<IDataScienceFileSystem>(IDataScienceFileSystem, DataScienceFileSystem);
     serviceManager.addSingleton<IFileSystemPathUtils>(IFileSystemPathUtils, FileSystemPathUtils);
+    serviceManager.addSingleton<SandDanceOpener>(SandDanceOpener, SandDanceOpener);
+    serviceManager.addSingleton<SandDanceExtension>(SandDanceExtension, SandDanceExtension);
+    serviceManager.addSingleton<SandDanceInstaller>(SandDanceInstaller, SandDanceInstaller);
 
     registerGatherTypes(serviceManager);
     registerNotebookTypes(serviceManager);

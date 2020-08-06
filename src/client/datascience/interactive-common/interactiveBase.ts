@@ -76,6 +76,7 @@ import { JupyterKernelPromiseFailedError } from '../jupyter/kernels/jupyterKerne
 import { KernelSelector, KernelSpecInterpreter } from '../jupyter/kernels/kernelSelector';
 import { LiveKernelModel } from '../jupyter/kernels/types';
 import { CssMessages, SharedMessages } from '../messages';
+import { SandDanceOpener } from '../sanddance/sandDanceOpener';
 import {
     CellState,
     ICell,
@@ -169,7 +170,8 @@ export abstract class InteractiveBase extends WebViewHost<IInteractiveWindowMapp
         private readonly notebookProvider: INotebookProvider,
         useCustomEditorApi: boolean,
         expService: IExperimentService,
-        private selector: KernelSelector
+        private selector: KernelSelector,
+        private readonly sandDanceLoader: SandDanceOpener
     ) {
         super(
             configuration,
@@ -985,10 +987,7 @@ export abstract class InteractiveBase extends WebViewHost<IInteractiveWindowMapp
 
     private async showSandDance(request: IShowSandDance) {
         try {
-            const jupyterVariableDataProvider = await this.jupyterVariableDataProviderFactory.create(
-                request.variable,
-                this._notebook!
-            );
+            await this.sandDanceLoader.open(request.variable, this._notebook!);
         } catch (e) {
             this.applicationShell.showErrorMessage(e.toString());
         }

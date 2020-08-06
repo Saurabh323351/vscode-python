@@ -9,8 +9,10 @@ import * as uuid from 'uuid/v4';
 import { CancellationToken, Event, EventEmitter, Uri } from 'vscode';
 import { PYTHON_LANGUAGE } from '../../common/constants';
 import { traceError } from '../../common/logger';
+import { IFileSystem, TemporaryFile } from '../../common/platform/types';
 import { IConfigurationService, IDisposable } from '../../common/types';
 import * as localize from '../../common/utils/localize';
+import { noop } from '../../common/utils/misc';
 import { DataFrameLoading, Identifiers, Settings } from '../constants';
 import {
     ICell,
@@ -21,7 +23,6 @@ import {
     INotebook
 } from '../types';
 import { JupyterDataRateLimitError } from './jupyterDataRateLimitError';
-
 // tslint:disable-next-line: no-var-requires no-require-imports
 
 // Regexes for parsing data from Python kernel. Not sure yet if other
@@ -42,16 +43,18 @@ interface INotebookState {
 
 @injectable()
 export class KernelVariables implements IJupyterVariables {
+    public get refreshRequired(): Event<void> {
+        return this.refreshEventEmitter.event;
+    }
     private importedDataFrameScripts = new Map<string, boolean>();
     private languageToQueryMap = new Map<string, { query: string; parser: RegExp }>();
     private notebookState = new Map<Uri, INotebookState>();
     private refreshEventEmitter = new EventEmitter<void>();
 
-    constructor(@inject(IConfigurationService) private configService: IConfigurationService) {}
-
-    public get refreshRequired(): Event<void> {
-        return this.refreshEventEmitter.event;
-    }
+    constructor(
+        @inject(IConfigurationService) private configService: IConfigurationService,
+        @inject(IFileSystem) private fileSystem: IFileSystem
+    ) {}
 
     // IJupyterVariables implementation
     public async getVariables(
@@ -121,6 +124,39 @@ export class KernelVariables implements IJupyterVariables {
         };
     }
 
+    public async makeCSVFileFromDataFrame(
+        targetVariable: IJupyterVariable,
+        notebook: INotebook
+    ): Promise<TemporaryFile> {
+        // Import the data frame script directory if we haven't already
+        await this.importDataFrameScripts(notebook);
+        const tempFile = await this.fileSystem.createTemporaryFile('.csv');
+        const uniqueFilePath = tempFile.filePath;
+        tempFile.dispose();
+
+        await notebook.execute(`import pandas as pd`, Identifiers.EmptyFileName, 0, uuid(), undefined, true);
+        await notebook.execute(
+            `${targetVariable} = pd.DataFrame.from_dict(${targetVariable.name})`,
+            Identifiers.EmptyFileName,
+            1,
+            uuid(),
+            undefined,
+            true
+        );
+        const result = await notebook.execute(
+            `${targetVariable.name}.to_csv('C:\\Users\\timot\\Desktop\\test123456.csv')`,
+            Identifiers.EmptyFileName,
+            2,
+            uuid(),
+            undefined,
+            true
+        );
+
+        await this.delay(1000);
+        console.log(uniqueFilePath);
+        return tempFile;
+    }
+
     public async getDataFrameRows(
         targetVariable: IJupyterVariable,
         notebook: INotebook,
@@ -144,6 +180,17 @@ export class KernelVariables implements IJupyterVariables {
             true
         );
         return this.deserializeJupyterResult(results);
+    }
+
+    private async delay(ms: number, callback?: Function): Promise<void> {
+        await new Promise((resolve) => setTimeout(resolve, ms)).then(() => {
+            // tslint:disable-next-line: no-unused-expression
+            callback ? callback() : noop;
+        });
+    }
+
+    private escapeFilePath(path: string): string {
+        return path.replace('\\', '\\\\');
     }
 
     private async importDataFrameScripts(notebook: INotebook, token?: CancellationToken): Promise<void> {

@@ -44,6 +44,7 @@ import { NotebookModelChange } from '../interactive-common/interactiveWindowType
 import { NativeEditor } from '../interactive-ipynb/nativeEditor';
 import { NativeEditorSynchronizer } from '../interactive-ipynb/nativeEditorSynchronizer';
 import { KernelSelector } from '../jupyter/kernels/kernelSelector';
+import { SandDanceOpener } from '../sanddance/sandDanceOpener';
 import {
     ICodeCssGenerator,
     IDataScienceErrorHandler,
@@ -262,7 +263,8 @@ export class NativeEditorProvider implements INotebookEditorProvider, CustomEdit
             this.serviceContainer.get<IExperimentService>(IExperimentService),
             model,
             panel,
-            this.serviceContainer.get<KernelSelector>(KernelSelector)
+            this.serviceContainer.get<KernelSelector>(KernelSelector),
+            this.serviceContainer.get<SandDanceOpener>(SandDanceOpener)
         );
         this.openedEditor(editor);
         return editor;

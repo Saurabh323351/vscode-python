@@ -31,6 +31,7 @@ import { IDataViewerFactory } from '../data-viewing/types';
 import { InteractiveWindowMessages } from '../interactive-common/interactiveWindowTypes';
 import { KernelSelector } from '../jupyter/kernels/kernelSelector';
 import { INotebookStorageProvider } from '../notebookStorage/notebookStorageProvider';
+import { SandDanceOpener } from '../sanddance/sandDanceOpener';
 import {
     ICodeCssGenerator,
     IDataScienceErrorHandler,
@@ -103,7 +104,8 @@ export class NativeEditorOldWebView extends NativeEditor {
         expService: IExperimentService,
         model: INotebookModel,
         webviewPanel: WebviewPanel | undefined,
-        selector: KernelSelector
+        selector: KernelSelector,
+        sandDanceOpener: SandDanceOpener
     ) {
         super(
             listeners,
@@ -138,7 +140,8 @@ export class NativeEditorOldWebView extends NativeEditor {
             expService,
             model,
             webviewPanel,
-            selector
+            selector,
+            sandDanceOpener
         );
         asyncRegistry.push(this);
         // No ui syncing in old notebooks.

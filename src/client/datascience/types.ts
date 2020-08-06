@@ -883,6 +883,7 @@ export interface IJupyterVariables {
         name: string,
         cancelToken?: CancellationToken
     ): Promise<IJupyterVariable | undefined>;
+    makeCSVFileFromDataFrame?(targetVariable: IJupyterVariable, notebook: INotebook): Promise<TemporaryFile>;
 }
 
 export interface IConditionalJupyterVariables extends IJupyterVariables {

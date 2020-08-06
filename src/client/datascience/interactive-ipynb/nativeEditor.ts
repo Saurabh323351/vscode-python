@@ -90,6 +90,7 @@ import { IDataViewerFactory } from '../data-viewing/types';
 import { getCellHashProvider } from '../editor-integration/cellhashprovider';
 import { KernelSelector } from '../jupyter/kernels/kernelSelector';
 import { LiveKernelModel } from '../jupyter/kernels/types';
+import { SandDanceOpener } from '../sanddance/sandDanceOpener';
 
 const nativeEditorDir = path.join(EXTENSION_ROOT_DIR, 'out', 'datascience-ui', 'notebook');
 export class NativeEditor extends InteractiveBase implements INotebookEditor {
@@ -184,7 +185,8 @@ export class NativeEditor extends InteractiveBase implements INotebookEditor {
         private expService: IExperimentService,
         private _model: INotebookModel,
         webviewPanel: WebviewPanel | undefined,
-        selector: KernelSelector
+        selector: KernelSelector,
+        sandDanceOpener: SandDanceOpener
     ) {
         super(
             listeners,
@@ -222,7 +224,8 @@ export class NativeEditor extends InteractiveBase implements INotebookEditor {
             notebookProvider,
             useCustomEditorApi,
             expService,
-            selector
+            selector,
+            sandDanceOpener
         );
         asyncRegistry.push(this);
 

@@ -36,6 +36,7 @@ import { KernelSelector } from '../jupyter/kernels/kernelSelector';
 import { NativeEditorProvider } from '../notebookStorage/nativeEditorProvider';
 import { INotebookStorageProvider } from '../notebookStorage/notebookStorageProvider';
 import { VSCodeNotebookModel } from '../notebookStorage/vscNotebookModel';
+import { SandDanceOpener } from '../sanddance/sandDanceOpener';
 import {
     ICodeCssGenerator,
     IDataScienceErrorHandler,
@@ -229,7 +230,8 @@ export class NativeEditorProviderOld extends NativeEditorProvider {
             this.serviceContainer.get<IExperimentService>(IExperimentService),
             model,
             panel,
-            this.serviceContainer.get<KernelSelector>(KernelSelector)
+            this.serviceContainer.get<KernelSelector>(KernelSelector),
+            this.serviceContainer.get<SandDanceOpener>(SandDanceOpener)
         );
         this.activeEditors.set(model.file.fsPath, editor);
         this.disposables.push(editor.closed(this.onClosedEditor.bind(this)));
