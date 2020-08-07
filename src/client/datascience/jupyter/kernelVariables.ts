@@ -127,19 +127,27 @@ export class KernelVariables implements IJupyterVariables {
         // Import the data frame script directory if we haven't already
         await this.importDataFrameScripts(notebook);
         const tempFile = await this.fileSystem.createTemporaryFile('.csv');
-        const uniqueFilePath = 'C:\\Users\\timot\\Desktop\\test.csv';
-        tempFile.dispose();
+        const uniqueFilePath = this.escapeFilePath(tempFile.filePath);
+        await tempFile.dispose();
 
         await notebook.execute(
-            `import pandas as pd;${targetVariable.name} = pd.DataFrame.from_dict(${targetVariable.name});${
-                targetVariable.name
-            }.to_csv(${this.escapeFilePath(uniqueFilePath)})`,
+            `import pandas as pd;${targetVariable.name} = pd.DataFrame.from_dict(${targetVariable.name})`,
             Identifiers.EmptyFileName,
-            2,
+            0,
             uuid(),
             undefined,
             true
         );
+
+        await notebook.execute(
+            `${targetVariable.name}.to_csv('${uniqueFilePath}')`,
+            Identifiers.EmptyFileName,
+            1,
+            uuid(),
+            undefined,
+            true
+        );
+        console.log(uniqueFilePath);
         return uniqueFilePath;
     }
 
@@ -169,7 +177,15 @@ export class KernelVariables implements IJupyterVariables {
     }
 
     private escapeFilePath(path: string): string {
-        return path.replace('\\', '\\\\');
+        let newPath = '';
+        for (const chr of path) {
+            if (chr === '\\') {
+                newPath = `${newPath}\\\\`;
+            } else {
+                newPath = newPath + chr;
+            }
+        }
+        return newPath;
     }
 
     private async importDataFrameScripts(notebook: INotebook, token?: CancellationToken): Promise<void> {
